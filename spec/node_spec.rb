@@ -24,7 +24,7 @@ describe QuadTree::Node do
 
     context "positive" do
       before(:each) do
-        @node.subdivide_if_needed
+        @node.subdivide
       end
 
       it "should subdivide the north east correctly" do

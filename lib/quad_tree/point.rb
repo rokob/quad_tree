@@ -1,4 +1,7 @@
 module QuadTree
+  ##
+  # A simple representation of a two-dimensional coordinate 
+  #
   class Point
     attr_accessor :x, :y
     def initialize(x, y)

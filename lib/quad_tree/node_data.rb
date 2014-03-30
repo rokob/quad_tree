@@ -9,7 +9,11 @@ module QuadTree
     end
 
     def at?(x, y)
-      return @point.x == x && @point.y == y
+      @point.x == x && @point.y == y
+    end
+
+    def at_point?(point)
+      @point == point
     end
 
     def ==(other)

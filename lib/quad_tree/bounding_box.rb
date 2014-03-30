@@ -7,8 +7,12 @@ module QuadTree
       @half_width = half_width
     end
 
-    def contains_point?(x, y)
+    def contains_location?(x, y)
       (@center.x - x).abs <= @half_width && (@center.y - y).abs <= @half_width
+    end
+
+    def contains_point?(point)
+      contains_location?(point.x, point.y)
     end
 
     def to_s

@@ -14,7 +14,11 @@ module QuadTree
     end
 
     def contains_location?(x, y)
-      @bounding_box.contains_point?(x, y)
+      @bounding_box.contains_location?(x, y)
+    end
+
+    def contains_point?(point)
+      @bounding_box.contains_point?(point)
     end
 
     def find(x, y)
@@ -28,7 +32,7 @@ module QuadTree
     def nodes_in_box(box, &block)
       return unless block and @bounding_box.intersects?(box)
       @data.each do |node|
-        block.call(node) if box.contains_point?(node.point.x, node.point.y)
+        block.call(node) if box.contains_point?(node.point)
       end
       return unless @ne
       @ne.nodes_in_box(box, &block)
@@ -38,7 +42,7 @@ module QuadTree
     end
 
     def insert(node_data)
-      return false unless contains_location?(node_data.point.x, node_data.point.y)
+      return false unless contains_point?(node_data.point)
       if @data.count < @capacity
         @data << node_data
       else
@@ -47,16 +51,16 @@ module QuadTree
       end
     end
 
+    def subdivide_if_needed
+      subdivide unless @ne
+    end
+
     def insert_in_subnode(node_data)
       return true if @ne.insert(node_data)
       return true if @nw.insert(node_data)
       return true if @se.insert(node_data)
       return true if @sw.insert(node_data)
       false
-    end
-
-    def subdivide_if_needed
-      subdivide if @ne.nil?
     end
 
     def subdivide

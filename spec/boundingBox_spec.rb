@@ -4,17 +4,17 @@ describe QuadTree::BoundingBox do
 
   it "should contain a point at its center" do
     box = Box.new(50, 50, 10)
-    box.contains_point?(50, 50).should be_true
+    box.contains_location?(50, 50).should be_true
   end
 
   it "should not contain a point outside its bounds" do
     box = Box.new(50, 50, 10)
-    box.contains_point?(0, 0).should be_false
+    box.contains_location?(0, 0).should be_false
   end
 
   it "should contain a point on an edge" do
     box = Box.new(50, 50, 10)
-    box.contains_point?(50, 40).should be_true
+    box.contains_location?(50, 40).should be_true
   end
 
   it "should correctly know it intersects a subregion" do
