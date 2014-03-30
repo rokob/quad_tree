@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["wvvwwvw@gmail.com"]
   gem.description   = %q{A QuadTree}
   gem.summary       = %q{Just a quad tree}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/rokob/quad_tree"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

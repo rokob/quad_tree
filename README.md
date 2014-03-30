@@ -1,6 +1,15 @@
 # QuadTree
 
-TODO: Write a gem description
+This is a simple implementation of a spatial data structure commonly referred to as
+a quad tree because it is a tree where each non-leaf node has four children. It is useful
+for doing queries about points on a plane. In practice such a data structure
+usually has very good performance for queries over certain ranges of space. This library
+implements that basic functionality that allows you to add points with associated data,
+lookup the data given the point, and to query for all (point, data) nodes in a particular
+square bounded region.
+
+This isn't meant to really be taken too seriously, I am using this as a toy project to
+explore some things with Ruby mostly related to the build process and toolchain.
 
 ## Installation
 
@@ -18,7 +27,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Find something to put here
 
 ## Contributing
 
