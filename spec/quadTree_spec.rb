@@ -29,7 +29,10 @@ describe QuadTree do
     @tree.add_element(10, 10, "x")
     @tree.add_element(20, 20, "y")
     box = Box.new(7, 7, 4)
-    nodes = @tree.elements_in_box(box)
+    nodes = []
+    @tree.nodes_in_box(box) do |node|
+      nodes << node
+    end
     nodes.include?(NodeData.new(10, 10, "x")).should be_true
     nodes.include?(NodeData.new(20, 20, "y")).should be_false
   end
@@ -39,7 +42,10 @@ describe QuadTree do
       @tree.add_element(x, x, x)
     end
     box = Box.new(5, 5, 1)
-    nodes = @tree.elements_in_box(box)
+    nodes = []
+    @tree.nodes_in_box(box) do |node|
+      nodes << node
+    end
     (4..6).each do |x|
       nodes.include?(NodeData.new(x, x, x)).should be_true
     end
