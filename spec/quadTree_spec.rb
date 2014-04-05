@@ -2,6 +2,16 @@ require 'spec_helper'
 
 describe QuadTree do
 
+  it "should expand the box given in initialize" do
+    Box.should_receive(:new).with(50.0, 50.0, 50.0)
+    tree = QuadTree::QuadTree.new(0, 0, 50, 100)
+  end
+
+  it "should not expand a square box" do
+    Box.should_receive(:new).with(20.0, 20.0, 20.0)
+    tree = QuadTree::QuadTree.new(0, 0, 40, 40)
+  end
+
   before(:each) do
     @tree = QuadTree::QuadTree.new
   end

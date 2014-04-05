@@ -60,7 +60,6 @@ module QuadTree
       return true if @nw.insert(node_data)
       return true if @se.insert(node_data)
       return true if @sw.insert(node_data)
-      false
     end
 
     def subdivide

@@ -75,4 +75,65 @@ describe QuadTree::Node do
     end
   end
 
+  describe "add many elements" do
+    def data_with_center(x, y, distance, count)
+      ax,bx = (distance - x) / (count > 1 ? count - 1.0 : 1.0), x
+      ay,by = (distance - y) / (count > 1 ? count - 1.0 : 1.0), y
+      (0...count).map do |i|
+        NodeData.new(ax*i+bx, ay*i+by, ax*i+bx)
+      end
+    end
+
+    def finds_data_object(node_data, node)
+      point = node_data.point
+      node.find(point.x, point.y).should == node_data.element
+    end
+
+    def finds_first_and_last(nodes, node)
+      nodes.each do |n|
+        finds_data_object(n.first, node)
+        finds_data_object(n.last, node)
+      end
+    end
+
+    it "should add elements in all directions" do
+      ne_data = data_with_center(75, 25, 10, 6)
+      nw_data = data_with_center(25, 25, 10, 3)
+      se_data = data_with_center(75, 75, 10, 3)
+      sw_data = data_with_center(25, 75, 10, 3)
+      [ne_data, nw_data, se_data, sw_data].flatten.each do |d|
+        @node.insert(d).should be_true
+      end
+    end
+
+    it "should be able to look up elements in all directions" do
+      ne_data = data_with_center(75, 25, 10, 6)
+      nw_data = data_with_center(25, 25, 10, 3)
+      se_data = data_with_center(75, 75, 10, 3)
+      sw_data = data_with_center(25, 75, 10, 3)
+      all_data = [ne_data, nw_data, se_data, sw_data]
+      all_data.flatten.each do |d|
+        @node.insert(d).should be_true
+      end
+
+      finds_first_and_last(all_data, @node)
+    end
+  end
+
+  describe "outside the world" do
+    it "should not add an element outside of the root box" do
+      @node.insert(NodeData.new(200, 200, "nope")).should be_false
+    end
+  end
+
+end
+
+describe QuadTree::NodeData do
+  let (:node) { NodeData.new(1, 2, "x") }
+
+  subject { node }
+
+  it { should be_at_point Point.new(1,2) }
+  it { should be_at(1,2) }
+  specify { node.element.should == "x" }
 end
